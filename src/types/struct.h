@@ -11,7 +11,7 @@ namespace gir {
 
 using namespace v8;
 
-using PersistentFunctionTemplate = Nan::Persistent<FunctionTemplate, CopyablePersistentTraits<FunctionTemplate>>;
+using LocalFunctionTemplate = Nan::Persistent<FunctionTemplate, CopyablePersistentTraits<FunctionTemplate>>;
 
 class GIRStruct;
 
@@ -23,7 +23,7 @@ public:
     static Local<Value> from_existing(gpointer boxed_c_structure, GIStructInfo *info);
 
 private:
-    static map<GType, PersistentFunctionTemplate> prepared_js_classes;
+    static map<GType, LocalFunctionTemplate> prepared_js_classes;
 
     gpointer boxed_c_structure = nullptr;
     GIRInfoUniquePtr struct_info = nullptr;
