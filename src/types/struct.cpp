@@ -16,7 +16,7 @@ namespace gir {
 using namespace v8;
 using namespace std;
 
-map<GType, PersistentFunctionTemplate> GIRStruct::prepared_js_classes;
+map<GType, LocalFunctionTemplate> GIRStruct::prepared_js_classes;
 
 gpointer GIRStruct::get_native_ptr() {
     return this->boxed_c_structure;
@@ -71,7 +71,7 @@ Local<Function> GIRStruct::prepare(GIStructInfo *info) {
     // to the JS function (constructor)
     Local<FunctionTemplate> object_template = Nan::New<FunctionTemplate>(GIRStruct::constructor, struct_info_extern);
     GIRStruct::prepared_js_classes.insert(
-        make_pair(g_registered_type_info_get_g_type(info), PersistentFunctionTemplate(object_template)));
+        make_pair(g_registered_type_info_get_g_type(info), LocalFunctionTemplate(object_template)));
 
     object_template->SetClassName(Nan::New(name).ToLocalChecked());
 
